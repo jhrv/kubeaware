@@ -73,7 +73,7 @@ function _get_kubeconfig_last_changed {
 }
 
 function _set_last_checked {
-    echo $(date +%s) > ${LAST_CHECK}
+    echo $(date +%s) > ${LAST_CHECK_TIMESTAMP_FILE}
 }
 
 function _get_current_namespace {
