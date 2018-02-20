@@ -31,7 +31,7 @@ Include this in your `~/.bashrc` or `~/.zshrc`to load each time you start a new 
 
 When kubeaware.sh is sourced, mainly two things happen:
 - You load a set of helper functions, most importantly `kubeaware` which is used in your `$PS1` environment variable
-- The environment variable `$PROMPT_COMMAND` in bash or `$PROMPT` in zsh is patched with the function that gets the context info from Kubernetes. 
+- The environment variable `$PROMPT_COMMAND` in bash is patched with the function that gets the context info from Kubernetes. For ZSH the functionality is added via add-zsh-hook precmd.
 
 The function(s) included in `$PROMPT_COMMAND` is executed each time your shell runs a command.
 
