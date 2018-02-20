@@ -42,4 +42,4 @@ The function included by kubeaware will fetch the information from the `KUBECONF
 This was heavily inspired by https://github.com/jonmosco/kube-ps1, and does currently just contain a subset of the features
 
 ## Contributors
-- Frode Sundby [@frodesundby](https://github.com/frodesundby)
+- Frode Sundby ([@frodesundby](https://github.com/frodesundby))
