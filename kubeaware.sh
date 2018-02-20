@@ -17,7 +17,7 @@ function _main {
 
 function _init_env {
   KUBECTL=kubectl
-  KUBE_SYMBOL=$'\u2388 '
+  KUBE_SYMBOL=$'\e[0;34m\u2388 \e[0m'
   DEFAULT_NAMESPACE_ALIAS="~"
   KUBEDIR="${HOME}/.kube"
   KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
@@ -29,7 +29,7 @@ function _init_env {
 
 function kubeaware_prompt {
   if [[ ( -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" || -n ${KUBEAWARE}) && -z "${KUBEUNAWARE}" ]]; then
-    echo "[${KUBE_SYMBOL}${CURRENT_CTX}:${CURRENT_NS}] "
+    echo -e "[${KUBE_SYMBOL}${CURRENT_CTX}:${CURRENT_NS}] "
   fi
 }
 
