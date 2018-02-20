@@ -2,6 +2,25 @@
 
 [[ -n $DEBUG ]] && set -x
 
+function _main {
+   _init_env
+   _get_current_context
+   _get_current_namespace
+   PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}"
+}
+
+function _init_env {
+    KUBECTL=kubectl
+    KUBE_SYMBOL=$'\u2388 '
+    DEFAULT_NAMESPACE_ALIAS="~"
+    KUBEDIR="${HOME}/.kube"
+    KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
+    LAST_CHECK_TIMESTAMP_FILE="${KUBEDIR}/.kubeaware_lastcheck"
+    KUBEAWARE_GLOBAL_ENABLED_FILE="${KUBEDIR}/.kubeaware_enabled"
+
+    mkdir -p ${KUBEDIR}
+}
+
 function kubeaware_ps1 {
     if [[ -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" && -z "${KUBEUNAWARE}" ]]; then
         echo "[${KUBE_SYMBOL}${CURRENT_CTX}:${CURRENT_NS}] "
@@ -34,23 +53,6 @@ function kubeunaware {
     fi
 }
 
-function _main {
-   _init_env
-   PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}"
-}
-
-function _init_env {
-    KUBECTL=kubectl
-    KUBE_SYMBOL=$'\u2388 '
-    DEFAULT_NAMESPACE_ALIAS="~"
-    KUBEDIR="${HOME}/.kube"
-    KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
-    LAST_CHECK_TIMESTAMP_FILE="${KUBEDIR}/.kubeaware_lastcheck"
-    KUBEAWARE_GLOBAL_ENABLED_FILE="${KUBEDIR}/.kubeaware_enabled"
-
-    mkdir -p ${KUBEDIR}
-}
-
 function _sync_kubeaware {
     # only update context if it's changed
     if [[ $(_get_kubeconfig_last_changed) > $(_get_last_checked) ]]; then
@@ -78,6 +80,9 @@ function _set_last_checked {
 
 function _get_current_namespace {
     CURRENT_NS="$(${KUBECTL} config view --minify --output 'jsonpath={..namespace}' 2> /dev/null)"
+    if [[ ${CURRENT_NS} == "default" ]]; then
+        unset CURRENT_NS
+    fi
     CURRENT_NS="${CURRENT_NS:-${DEFAULT_NAMESPACE_ALIAS}}"
 }
 
