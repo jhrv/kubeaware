@@ -15,10 +15,10 @@ With no arguments, turn on/off kubeaware for this shell instance instance (defau
 ## installation
 ```
 source kubeaware.sh
-export PS1="[your prompt] \$(kubeaware)$"
+export PS1="[your prompt] \$(kubeaware)$" # The output from the function `kubeaware` will have a whitespace at the end.
 ```
 
-The output from the function `kubeaware` will have a whitespace at the end.
+Include this in your `~/.bashrc` to load each time you start a new shell
 
 ## how it works
 
@@ -32,4 +32,4 @@ The function included by kubeaware will fetch the information from the `KUBECONF
 
 ## acknowledgements
 
-This was heavily inspired by https://github.com/jonmosco/kube-ps1, and does currently just contain a subset of the features. 
+This was heavily inspired by https://github.com/jonmosco/kube-ps1, and does currently just contain a subset of the features
