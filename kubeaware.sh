@@ -3,10 +3,16 @@
 [[ -n $DEBUG ]] && set -x
 
 function _main {
-   _init_env
-   _get_current_context
-   _get_current_namespace
-   PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}"
+    _init_env
+    _get_current_context
+    _get_current_namespace
+    if [ "${ZSH_VERSION}" ]; then
+      setopt PROMPT_SUBST
+      autoload -U add-zsh-hook
+      add-zsh-hook precmd _sync_kubeaware
+    elif [ "${BASH_VERSION}" ]; then
+      PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}"
+    fi
 }
 
 function _init_env {
@@ -21,8 +27,8 @@ function _init_env {
     mkdir -p ${KUBEDIR}
 }
 
-function kubeaware_ps1 {
-    if [[ -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" && -z "${KUBEUNAWARE}" ]]; then
+function kubeaware_prompt {
+    if [[ ( -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" || -n ${KUBEAWARE}) && -z "${KUBEUNAWARE}" ]]; then
         echo "[${KUBE_SYMBOL}${CURRENT_CTX}:${CURRENT_NS}] "
     fi
 }
@@ -36,6 +42,7 @@ function kubeaware {
     if [[ "${1}" == "-g" || "${1}" == "--global" ]]; then
         touch ${KUBEAWARE_GLOBAL_ENABLED_FILE}
     else
+	export KUBEAWARE="true"
         unset KUBEUNAWARE
     fi
 }
@@ -102,7 +109,7 @@ Usage: kubeaware [-g | --global] [-h | --help]
 
 With no arguments, turn on/off kubeaware for this shell instance instance (default).
 
-  -g --global  turn on kube-ps1 status globally
+  -g --global  turn on kubeawareness globally
   -h --help    print this message
 
 EOF
