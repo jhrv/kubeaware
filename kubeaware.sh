@@ -80,9 +80,11 @@ function _set_last_checked {
 
 function _get_current_namespace {
     CURRENT_NS="$(${KUBECTL} config view --minify --output 'jsonpath={..namespace}' 2> /dev/null)"
+
     if [[ ${CURRENT_NS} == "default" ]]; then
         unset CURRENT_NS
     fi
+
     CURRENT_NS="${CURRENT_NS:-${DEFAULT_NAMESPACE_ALIAS}}"
 }
 
