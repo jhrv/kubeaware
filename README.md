@@ -3,6 +3,9 @@
 A simple Kubernetes context awareness helper for bash and zsh
 
 ## Usage
+
+![usage_demo](usage.gif)
+
 ```
 Usage: kube[un]aware [-g | --global] [-h | --help]
 
@@ -13,11 +16,15 @@ With no arguments, turn on/off kubeaware for this shell instance instance (defau
 ```
 
 ## Installation
+
 ### Bash
 ```
 source kubeaware.sh
 export PS1="[your prompt] \$(kubeaware_prompt)$" # The output from the function `kubeaware_prompt` will have a whitespace at the end.
 ```
+
+![installation_demo](installation.gif)
+
 ### Zsh
 ```
 source kubeaware.sh
