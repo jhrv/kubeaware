@@ -1,10 +1,12 @@
 # Kubeaware
 
-A simple Kubernetes context awareness helper for bash and zsh
+A simpler Kubernetes context awareness helper for bash and zsh
+
+Complements the [kubectx and kubens tools](https://github.com/ahmetb/kubectx) by [ahmetb](https://github.com/ahmetb)
 
 ## Usage
 
-![usage_demo](usage.gif)
+![usage_demo](img/usage.gif)
 
 ```
 Usage: kube[un]aware [-g | --global] [-h | --help]
@@ -23,7 +25,7 @@ source kubeaware.sh
 export PS1="[your prompt] \$(kubeaware_prompt)$" # The output from the function `kubeaware_prompt` will have a whitespace at the end.
 ```
 
-![installation_demo](installation.gif)
+![installation_demo](img/installation.gif)
 
 ### Zsh
 ```
@@ -46,7 +48,7 @@ The function included by kubeaware will fetch the information from the `KUBECONF
 
 ## Acknowledgements
 
-This was heavily inspired by https://github.com/jonmosco/kube-ps1, and does currently just contain a subset of the features (by design)
+Heavily inspired by [kube-ps1](https://github.com/jonmosco/kube-ps1) by [jonmosco](https://github.com/jonmosco), and aims to contain only a subset of the features
 
 ## Contributors
 - [Frode Sundby](https://github.com/frodesundby)
