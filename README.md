@@ -50,3 +50,7 @@ This was heavily inspired by https://github.com/jonmosco/kube-ps1, and does curr
 
 ## Contributors
 - [Frode Sundby](https://github.com/frodesundby)
+
+## Known issues
+
+Has not been tested versions of bash < 4.x, so there might be compatability issues if you are running an older version
