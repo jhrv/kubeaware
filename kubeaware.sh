@@ -24,7 +24,7 @@ function _init_env {
   LAST_CHECK_TIMESTAMP_FILE="${KUBEDIR}/.kubeaware_lastcheck"
   KUBEAWARE_GLOBAL_ENABLED_FILE="${KUBEDIR}/.kubeaware_enabled"
 
-  mkdir -p ${KUBEDIR}
+  mkdir -p "${KUBEDIR}"
 }
 
 function kubeaware_prompt {
@@ -40,7 +40,7 @@ function kubeaware {
   fi
   
   if [[ "${1}" == "-g" || "${1}" == "--global" ]]; then
-    touch ${KUBEAWARE_GLOBAL_ENABLED_FILE}
+    touch "${KUBEAWARE_GLOBAL_ENABLED_FILE}"
   else
     export KUBEAWARE="true"
     unset KUBEUNAWARE
@@ -54,7 +54,7 @@ function kubeunaware {
   fi
 
   if [[ "${1}" == "-g" || "${1}" == "--global" ]]; then
-    rm -f ${KUBEAWARE_GLOBAL_ENABLED_FILE}
+    rm -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}"
   else
     export KUBEUNAWARE="true"
   fi
@@ -71,18 +71,18 @@ function _sync_kubeaware {
 
 function _get_last_checked {
   if [[ -f ${LAST_CHECK_TIMESTAMP_FILE} ]]; then
-    cat ${LAST_CHECK_TIMESTAMP_FILE}
+    cat "${LAST_CHECK_TIMESTAMP_FILE}"
   else
     echo 0 
   fi
 }
 
 function _get_kubeconfig_last_changed {
-  date -r ${KUBECONFIG_FILE} +%s
+  date -r "${KUBECONFIG_FILE}" +%s
 }
 
 function _set_last_checked {
-  echo $(date +%s) > ${LAST_CHECK_TIMESTAMP_FILE}
+  date +%s > "${LAST_CHECK_TIMESTAMP_FILE}"
 }
 
 function _get_current_namespace {
