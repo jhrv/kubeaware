@@ -55,9 +55,9 @@ function kubeunaware {
 
   if [[ "${1}" == "-g" || "${1}" == "--global" ]]; then
     rm -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}"
-  else
-    export KUBEUNAWARE="true"
   fi
+
+  export KUBEUNAWARE="true"
 }
 
 function _sync_kubeaware {
