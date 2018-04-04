@@ -2,28 +2,26 @@
 
 [[ -n $DEBUG ]] && set -x
 
-_main () {
-        _init_env
-        _get_current_context
-        _get_current_namespace
-        if [ "${ZSH_VERSION}" ]
-        then
-                PRE_SYMBOL="%{$fg[blue]%}" 
-                POST_SYMBOL="%{$fg[white]%}" 
-                setopt PROMPT_SUBST
-                autoload -U add-zsh-hook
-                add-zsh-hook precmd _sync_kubeaware
-        elif [ "${BASH_VERSION}" ]
-        then
-                PRE_SYMBOL='\e[0;34m' 
-                POST_SYMBOL='\e[0;0m' 
-                PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}" 
-        fi
+function _main {
+  _init_env
+  _get_current_context
+  _get_current_namespace
+  if [ "${ZSH_VERSION}" ]; then
+    PRE_SYMBOL="%{$fg[blue]%}" 
+    POST_SYMBOL="%{$fg[white]%}" 
+    setopt PROMPT_SUBST
+    autoload -U add-zsh-hook
+    add-zsh-hook precmd _sync_kubeaware
+  elif [ "${BASH_VERSION}" ]; then
+    PRE_SYMBOL='\e[0;34m' 
+    POST_SYMBOL='\e[0;0m' 
+    PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}" 
+  fi
 }
 
 function _init_env {
   KUBECTL=kubectl
-  KUBE_SYMBOL=$'\u2388' 
+  KUBE_SYMBOL=$'\u2388'
   DEFAULT_NAMESPACE_ALIAS="~"
   KUBEDIR="${HOME}/.kube"
   KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
@@ -33,12 +31,11 @@ function _init_env {
   mkdir -p "${KUBEDIR}"
 }
 
-kubeaware_prompt () {
+function kubeaware_prompt {
   if [[ ( -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" || -n ${KUBEAWARE} ) && -z "${KUBEUNAWARE}" ]]; then
-    echo "[${PRE_SYMBOL}${KUBE_SYMBOL}${POST_SYMBOL} ${CURRENT_CTX}:${CURRENT_NS}]"
+    echo -e "[${PRE_SYMBOL}${KUBE_SYMBOL}${POST_SYMBOL} ${CURRENT_CTX}:${CURRENT_NS}]"
   fi
 }
-
 
 function kubeaware {
   if [[ "${1}" == "-h" || "${1}" == "--help" ]]; then
