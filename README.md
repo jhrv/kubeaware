@@ -52,6 +52,7 @@ Heavily inspired by [kube-ps1](https://github.com/jonmosco/kube-ps1) by [jonmosc
 
 ## Contributors
 - [Frode Sundby](https://github.com/frodesundby)
+- [Vegar Sechmann Molvig](https://github.com/VegarM)
 
 ## Known issues
 
