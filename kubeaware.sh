@@ -13,8 +13,8 @@ function _main {
     autoload -U add-zsh-hook
     add-zsh-hook precmd _sync_kubeaware
   elif [ "${BASH_VERSION}" ]; then
-    PRE_SYMBOL='\e[0;34m' 
-    POST_SYMBOL='\e[0;0m' 
+    PRE_SYMBOL='\001\033[34m\002'
+    POST_SYMBOL='\001\033[39m\002' 
     PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}" 
   fi
 }
