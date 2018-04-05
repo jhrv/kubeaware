@@ -1,4 +1,4 @@
-# Kubeaware
+# kubeaware
 
 A simpler Kubernetes context awareness helper for bash and zsh
 
