@@ -7,17 +7,21 @@ function _main {
   _get_current_context
   _get_current_namespace
   if [ "${ZSH_VERSION}" ]; then
+    PRE_SYMBOL="%{$fg[blue]%}" 
+    POST_SYMBOL="%{$fg[white]%}" 
     setopt PROMPT_SUBST
     autoload -U add-zsh-hook
     add-zsh-hook precmd _sync_kubeaware
   elif [ "${BASH_VERSION}" ]; then
-    PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}"
+    PRE_SYMBOL='\001\033[34m\002'
+    POST_SYMBOL='\001\033[39m\002' 
+    PROMPT_COMMAND="_sync_kubeaware;${PROMPT_COMMAND}" 
   fi
 }
 
 function _init_env {
   KUBECTL=kubectl
-  KUBE_SYMBOL=$'\e[0;34m\u2388 \e[0m'
+  KUBE_SYMBOL=$'\u2388'
   DEFAULT_NAMESPACE_ALIAS="~"
   KUBEDIR="${HOME}/.kube"
   KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
@@ -28,8 +32,8 @@ function _init_env {
 }
 
 function kubeaware_prompt {
-  if [[ ( -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" || -n ${KUBEAWARE}) && -z "${KUBEUNAWARE}" ]]; then
-    echo -e "[${KUBE_SYMBOL}${CURRENT_CTX}:${CURRENT_NS}] "
+  if [[ ( -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" || -n ${KUBEAWARE} ) && -z "${KUBEUNAWARE}" ]]; then
+    echo -e "[${PRE_SYMBOL}${KUBE_SYMBOL}${POST_SYMBOL} ${CURRENT_CTX}:${CURRENT_NS}]"
   fi
 }
 

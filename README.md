@@ -22,7 +22,7 @@ With no arguments, turn on/off kubeaware for this shell instance instance (defau
 ### Bash
 ```
 source kubeaware.sh
-export PS1="[your prompt] \$(kubeaware_prompt)$" # The output from the function `kubeaware_prompt` will have a whitespace at the end.
+export PS1="[your prompt] \$(kubeaware_prompt) $"
 ```
 
 ![installation_demo](img/installation.gif)
@@ -30,7 +30,7 @@ export PS1="[your prompt] \$(kubeaware_prompt)$" # The output from the function 
 ### Zsh
 ```
 source kubeaware.sh
-PROMPT='$(kubeaware_prompt)'$PROMPT
+PROMPT='$(kubeaware_prompt) '$PROMPT
 ```
 
 
@@ -52,6 +52,7 @@ Heavily inspired by [kube-ps1](https://github.com/jonmosco/kube-ps1) by [jonmosc
 
 ## Contributors
 - [Frode Sundby](https://github.com/frodesundby)
+- [Vegar Sechmann Molvig](https://github.com/VegarM)
 
 ## Known issues
 
