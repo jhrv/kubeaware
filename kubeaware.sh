@@ -55,8 +55,8 @@ sync_kubeaware() {
 }
 
 get_last_checked() {
-  if [[ -f ${LAST_CHECK_TIMESTAMP_FILE} ]]; then
-    cat "${LAST_CHECK_TIMESTAMP_FILE}"
+  if [[ -n ${LAST_CHECK_TIMESTAMP} ]]; then
+    echo "${LAST_CHECK_TIMESTAMP}"
   else
     echo 0 
   fi
@@ -67,7 +67,7 @@ get_kubeconfig_last_changed() {
 }
 
 set_last_checked() {
-  date +%s > "${LAST_CHECK_TIMESTAMP_FILE}"
+  export LAST_CHECK_TIMESTAMP=$(date +%s)
 }
 
 get_current_namespace() {
