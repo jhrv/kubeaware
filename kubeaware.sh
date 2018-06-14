@@ -6,7 +6,6 @@ KUBECTL=kubectl
 KUBE_SYMBOL=$'\u2388'
 DEFAULT_NAMESPACE_ALIAS="~"
 KUBEDIR="${HOME}/.kube"
-KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
 KUBEAWARE_GLOBAL_ENABLED_FILE="${KUBEDIR}/.kubeaware_enabled"
 
 mkdir -p "${KUBEDIR}"
@@ -46,27 +45,14 @@ kubeunaware() {
 
 sync_kubeaware() {
   # only update context if it's changed
-  if [[ $(get_kubeconfig_last_changed) > $(get_last_checked) ]]; then
+  KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
+  local CURR_HASH=$(shasum ${KUBECONFIG_FILE} | cut -d" " -f1)
+
+  if [[ ${CURR_HASH} != ${LAST_HASH} ]]; then
     get_current_namespace
     get_current_context
-    set_last_checked
+    export LAST_HASH=${CURR_HASH}
   fi
-}
-
-get_last_checked() {
-  if [[ -n ${LAST_CHECK_TIMESTAMP} ]]; then
-    echo "${LAST_CHECK_TIMESTAMP}"
-  else
-    echo 0 
-  fi
-}
-
-get_kubeconfig_last_changed() {
-  date -r "${KUBECONFIG_FILE}" +%s
-}
-
-set_last_checked() {
-  export LAST_CHECK_TIMESTAMP=$(date +%s)
 }
 
 get_current_namespace() {
@@ -83,7 +69,6 @@ get_current_context() {
   CURRENT_CTX="$(${KUBECTL} config current-context 2>/dev/null)"
   CURRENT_CTX="${CURRENT_CTX:-n/a}"
 }
-
 
 print_help() {
   cat <<EOF 
