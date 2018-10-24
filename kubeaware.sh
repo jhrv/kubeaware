@@ -12,7 +12,7 @@ mkdir -p "${KUBEDIR}"
 
 kubeaware_prompt() {
   if [[ ( -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" || -n ${KUBEAWARE} ) && -z "${KUBEUNAWARE}" ]]; then
-    echo -e "[${PRE_SYMBOL}${KUBE_SYMBOL}${POST_SYMBOL} ${CURRENT_CTX}:${CURRENT_NS}]"
+    echo -e "[${PRE_SYMBOL}${KUBE_SYMBOL}${POST_SYMBOL} ${CURRENT_CTX}:${CURRENT_NS}] "
   fi
 }
 
