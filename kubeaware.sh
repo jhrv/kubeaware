@@ -3,7 +3,7 @@
 [[ -n $DEBUG ]] && set -x
 
 KUBECTL=kubectl
-KUBE_SYMBOL=$'\u2388'
+KUBE_SYMBOL='⎈'
 DEFAULT_NAMESPACE_ALIAS="~"
 KUBEDIR="${HOME}/.kube"
 KUBEAWARE_GLOBAL_ENABLED_FILE="${KUBEDIR}/.kubeaware_enabled"
