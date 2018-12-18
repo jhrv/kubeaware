@@ -36,6 +36,13 @@ PROMPT='$(kubeaware_prompt) '$PROMPT
 
 Include this in your `~/.bashrc` or `~/.zshrc`to load each time you start a new shell
 
+### Remove Kubernetes-logo
+
+Add the following line after `source`, if you want to remove the Kubernetes-logo:
+```
+unset KUBE_SYMBOL PRE_SYMBOL POST_SYMBOL
+```
+
 ## How it works
 
 When kubeaware.sh is sourced, mainly two things happen:
@@ -53,6 +60,7 @@ Heavily inspired by [kube-ps1](https://github.com/jonmosco/kube-ps1) by [jonmosc
 ## Contributors
 - [Frode Sundby](https://github.com/frodesundby)
 - [Vegar Sechmann Molvig](https://github.com/VegarM)
+- [Kyrre Havik Eriksen](https://github.com/kyrremann)
 
 ## Known issues
 
