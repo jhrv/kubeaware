@@ -12,7 +12,7 @@ mkdir -p "${KUBEDIR}"
 
 kubeaware_prompt() {
   if [[ ( -f "${KUBEAWARE_GLOBAL_ENABLED_FILE}" || -n ${KUBEAWARE} ) && -z "${KUBEUNAWARE}" ]]; then
-    echo -e "[${PRE_SYMBOL}${KUBE_SYMBOL}${POST_SYMBOL} ${CURRENT_CTX}:${CURRENT_NS}] "
+    echo -e "[${PRE_SYMBOL}${KUBE_SYMBOL}${POST_SYMBOL}${CURRENT_CTX}:${CURRENT_NS}] "
   fi
 }
 
@@ -89,13 +89,13 @@ main() {
   get_current_namespace
   if [ "${ZSH_VERSION}" ]; then
     PRE_SYMBOL="%{$fg[blue]%}"
-    POST_SYMBOL="%{$fg[white]%}"
+    POST_SYMBOL="%{$fg[white]%} "
     setopt PROMPT_SUBST
     autoload -U add-zsh-hook
     add-zsh-hook precmd sync_kubeaware
   elif [ "${BASH_VERSION}" ]; then
     PRE_SYMBOL='\001\033[34m\002'
-    POST_SYMBOL='\001\033[39m\002'
+    POST_SYMBOL='\001\033[39m\002 '
     PROMPT_COMMAND="sync_kubeaware;${PROMPT_COMMAND}"
   fi
 }
