@@ -46,7 +46,6 @@ kubeunaware() {
 sync_kubeaware() {
   # only update context if it's changed
   KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
-  echo $KUBECONFIG_FILE
 
   IFS=':' read -ra CONFIG <<< "$KUBECONFIG_FILE"
   KUBECONFIG_CONTENT="$(for element in "${CONFIG[@]}"; do cat "$element"; done)"
