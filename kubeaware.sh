@@ -46,7 +46,11 @@ kubeunaware() {
 sync_kubeaware() {
   # only update context if it's changed
   KUBECONFIG_FILE=${KUBECONFIG:-"${KUBEDIR}/config"}
-  local CURR_HASH=$(shasum ${KUBECONFIG_FILE} | cut -d" " -f1)
+  echo $KUBECONFIG_FILE
+
+  IFS=':' read -ra CONFIG <<< "$KUBECONFIG_FILE"
+  KUBECONFIG_CONTENT="$(for element in "${CONFIG[@]}"; do cat "$element"; done)"
+  local CURR_HASH=$(echo ${KUBECONFIG_CONTENT} | shasum | cut -d" " -f1)
 
   if [[ ${CURR_HASH} != ${LAST_HASH} ]]; then
     get_current_namespace
@@ -54,6 +58,7 @@ sync_kubeaware() {
     export LAST_HASH=${CURR_HASH}
   fi
 }
+
 
 get_current_namespace() {
   CURRENT_NS="$(${KUBECTL} config view --minify --output 'jsonpath={..namespace}' 2> /dev/null)"
