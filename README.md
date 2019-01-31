@@ -22,7 +22,7 @@ With no arguments, turn on/off kubeaware for this shell instance instance (defau
 ### Bash
 ```
 source kubeaware.sh
-export PS1="[your prompt] \$(kubeaware_prompt) $"
+export PS1="[your prompt] \$(kubeaware_prompt)$ "
 ```
 
 ![installation_demo](img/installation.gif)
